@@ -15,15 +15,10 @@ class Board extends React.Component {
             || this.state.squares[i-1] || this.props.winner) {
             return;
         }
-        if (this.props.game_state.boards[i-1]) {
-            this.props.selector(null);
-        } else {
-            this.props.selector(i);
-        }
         let squares = this.state.squares.slice();
         squares[i-1] = this.props.game_state.xIsNext ? 'X' : 'O';
         this.setState({squares: squares});
-        this.props.winBoard(this.props.board_id, squares);
+        this.props.updateBoard(this.props.board_id, squares, i);
     }
 
     renderSquare(i) {

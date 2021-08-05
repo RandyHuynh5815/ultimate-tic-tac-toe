@@ -9,8 +9,7 @@ class Game extends React.Component {
             selected: null,
             xIsNext: true,
         };
-        this.selectBoard = this.selectBoard.bind(this);
-        this.winBoard = this.winBoard.bind(this);
+        this.updateBoard = this.updateBoard.bind(this);
     }
 
     calculateWinner(squares) {
@@ -33,32 +32,31 @@ class Game extends React.Component {
         return null;
     }
 
-    selectBoard(id) {
+    updateBoard(prevBoardId, prevSquares, newBoardId) {
+        const boards = this.state.boards.slice();
+        boards[prevBoardId-1] = this.calculateWinner(prevSquares);
+        let newBoard = newBoardId;
+        if (boards[newBoardId-1]) {
+            newBoard = null;
+        }
         this.setState(prevState =>
             {return {
-                ...prevState, 
-                selected: id, 
+                boards: boards, 
+                selected: newBoard, 
                 xIsNext: !prevState.xIsNext
             }
         }
-    );
-    }
-
-    winBoard(id, squares) {
-        const boards = this.state.boards.slice();
-        boards[id-1] = this.calculateWinner(squares);
-        this.setState({boards: boards});
+        );
     }
 
     renderBoard(i) {
-        if (this.state.boards[i]) {
-            return <div className="won">{this.state.boards[i]}</div>
+        if (this.state.boards[i-1]) {
+            return <div className="won">{this.state.boards[i-1]}</div>
         }
         return (
                 <Board 
                 board_id={i} 
-                selector={this.selectBoard}
-                winBoard={this.winBoard}
+                updateBoard={this.updateBoard}
                 winner={this.calculateWinner(this.state.boards)}
                 game_state={this.state}/>
         );
