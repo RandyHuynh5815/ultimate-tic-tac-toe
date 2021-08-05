@@ -54,6 +54,13 @@ ol, ul {
     padding: 10px;
 }
 
+.won {
+    height: 100px;
+    width: 100px;
+    margin: 10px;
+    font-size: 100px;
+    text-align: center;
+}
 .game-info {
     margin-left: 20px;
 }

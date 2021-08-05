@@ -7,16 +7,23 @@ class Board extends React.Component {
         this.state = {
           squares: Array(9).fill(null),
         };
+        this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(i) {
-        if (this.props.game_state.selected && this.props.board_id !== this.props.game_state.selected) {
+        if ((this.props.game_state.selected && this.props.board_id !== this.props.game_state.selected)
+            || this.state.squares[i] || this.props.winner) {
             return;
         }
-        this.props.selector(i);
-        const squares = this.state.squares.slice();
+        if (this.props.game_state.boards[i]) {
+            this.props.selector(null);
+        } else {
+            this.props.selector(i);
+        }
+        let squares = this.state.squares.slice();
         squares[i] = this.props.game_state.xIsNext ? 'X' : 'O';
         this.setState({squares: squares});
+        this.props.winBoard(this.props.board_id, squares);
     }
 
     renderSquare(i) {
