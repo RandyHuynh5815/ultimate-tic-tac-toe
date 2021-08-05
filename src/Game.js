@@ -46,7 +46,7 @@ class Game extends React.Component {
 
     winBoard(id, squares) {
         const boards = this.state.boards.slice();
-        boards[id] = this.calculateWinner(squares);
+        boards[id-1] = this.calculateWinner(squares);
         this.setState({boards: boards});
     }
 
@@ -75,7 +75,7 @@ class Game extends React.Component {
         } else {
             status = 'Next Player: ' + (this.state.xIsNext ? 'X' : 'O');
             if (this.state.selected) {
-                board = 'Playing on Board ' + (this.state.selected + 1).toString();
+                board = 'Playing on Board ' + (this.state.selected).toString();
             } else {
                 board = 'Playing on any available board';
             }
@@ -86,19 +86,19 @@ class Game extends React.Component {
                     <div className="status">{status}</div>
                     <div className="status">{board}</div>
                     <div className="ult-row">
-                        {this.renderBoard(0)}
                         {this.renderBoard(1)}
                         {this.renderBoard(2)}
+                        {this.renderBoard(3)}
                     </div>
                     <div className="ult-row">
-                        {this.renderBoard(3)}
                         {this.renderBoard(4)}
                         {this.renderBoard(5)}
+                        {this.renderBoard(6)}
                     </div>
                     <div className="ult-row">
-                        {this.renderBoard(6)}
                         {this.renderBoard(7)}
                         {this.renderBoard(8)}
+                        {this.renderBoard(9)}
                     </div>
                 </div>
             </div>
