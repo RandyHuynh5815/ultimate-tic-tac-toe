@@ -39,6 +39,7 @@ class Game extends React.Component {
         if (boards[newBoardId-1]) {
             newBoard = null;
         }
+        
         this.setState(prevState =>
             {return {
                 boards: boards, 
